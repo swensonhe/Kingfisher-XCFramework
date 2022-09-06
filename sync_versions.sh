@@ -1,5 +1,5 @@
-firebase_repo="https://github.com/swensonhe/Kingfisher-XCFramework"
-xcframeworks_repo="https://github.com/onevcat/Kingfisher"
+kingfisher_repo="https://github.com/onevcat/Kingfisher"
+xcframeworks_repo="https://github.com/swensonhe/Kingfisher-XCFramework"
 
 latest_release_number () {
     # Github cli to get the latest release
@@ -25,7 +25,7 @@ commit_changes () {
     git push -u origin $branch
 }
 
-latest=$(latest_release_number $firebase_repo)
+latest=$(latest_release_number $kingfisher_repo)
 current=$(latest_release_number $xcframeworks_repo)
 debug=$(echo $@ || "" | grep debug)
 
@@ -37,13 +37,14 @@ if [[ $latest != $current || $debug ]]; then
     template="package_template.swift"
     curl -L https://github.com/onevcat/Kingfisher/releases/download/$latest/Kingfisher-$latest.zip -o Kingfisher-$latest.zip
     checksum=`swift package compute-checksum Kingfisher-$latest.zip`
+    rm -rf Kingfisher-$latest.zip
     cp -f $template $package
     template_replace $package "{VERSION}" $latest;
     template_replace $package "{CHECKSUM}" $checksum;
     echo "Merging changes to Github..."
     commit_changes "main"
     echo "Creating release"
-    echo "Release $latest" | gh release create --target "release/$latest" $latest "Kingfisher-7.3.2.zip"
+    echo "Release $latest" | gh release create --target "main" $latest
 else
     echo "$current is up to date."
 fi
