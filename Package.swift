@@ -10,8 +10,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Kingfisher",
-            url: "https://github.com/onevcat/Kingfisher/releases/download/7.8.1/Kingfisher-7.8.1.zip",
-            checksum: "c5018bf7c8c63485301b558c45de106fbe576b09a4b9d752f3dc08d86d39605b"
+            url: "https://github.com/onevcat/Kingfisher/releases/download/7.9.0/Kingfisher-7.9.0.zip",
+            checksum: "8ec24959e1244a6fd27f4422489758c0299a1aa1d38de70712b7bff5f0f545ab"
         )
     ]
 )
